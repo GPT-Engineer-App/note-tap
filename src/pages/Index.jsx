@@ -6,12 +6,14 @@ const Index = () => {
   const [notes, setNotes] = useState([]);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [date, setDate] = useState("");
 
   const addNote = () => {
-    if (title && content) {
-      setNotes([...notes, { title, content }]);
+    if (title && content && date) {
+      setNotes([...notes, { title, content, date }]);
       setTitle("");
       setContent("");
+      setDate("");
     }
   };
 
@@ -27,6 +29,7 @@ const Index = () => {
       <Stack spacing={4}>
         <Input placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} />
         <Textarea placeholder="Content" value={content} onChange={(e) => setContent(e.target.value)} />
+        <Input placeholder="Date" type="datetime-local" value={date} onChange={(e) => setDate(e.target.value)} />
         <Button leftIcon={<FaPlus />} onClick={addNote}>
           Add Note
         </Button>
@@ -40,6 +43,9 @@ const Index = () => {
               <IconButton icon={<FaTrash />} onClick={() => deleteNote(index)} />
             </Flex>
             <Text mt={4}>{note.content}</Text>
+            <Text color="gray.500" fontSize="sm">
+              {new Date(note.date).toLocaleString()}
+            </Text>
           </Box>
         ))}
       </VStack>
