@@ -10,7 +10,7 @@ const Index = () => {
 
   const addNote = () => {
     if (title && content && date) {
-      setNotes([...notes, { title, content, date }]);
+      setNotes([...notes, { title, content, date: new Date(date) }]);
       setTitle("");
       setContent("");
       setDate("");
