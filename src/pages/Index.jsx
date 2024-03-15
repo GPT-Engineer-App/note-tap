@@ -7,6 +7,7 @@ const Index = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [editIndex, setEditIndex] = useState(null);
+  const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
     if (editIndex !== null) {
@@ -43,14 +44,20 @@ const Index = () => {
 
   return (
     <Box maxWidth="800px" margin="auto" p={4}>
-      <Heading mb={8}>Note Taking App</Heading>
-      <Stack spacing={4}>
-        <Input placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} />
-        <Textarea placeholder="Content" value={content} onChange={(e) => setContent(e.target.value)} />
-        <Button leftIcon={<FaPlus />} onClick={saveNote}>
-          {editIndex !== null ? "Save Changes" : "Add Note"}
-        </Button>
-      </Stack>
+      <Flex align="center" mb={8}>
+        <Heading>Note Taking App</Heading>
+        <Spacer />
+        <IconButton icon={<FaPlus />} onClick={() => setShowForm(!showForm)} aria-label="Toggle form" />
+      </Flex>
+      {showForm && (
+        <Stack spacing={4} mb={8}>
+          <Input placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} />
+          <Textarea placeholder="Content" value={content} onChange={(e) => setContent(e.target.value)} />
+          <Button leftIcon={<FaPlus />} onClick={saveNote}>
+            {editIndex !== null ? "Save Changes" : "Add Note"}
+          </Button>
+        </Stack>
+      )}
       <VStack divider={<StackDivider />} spacing={4} align="stretch" mt={8}>
         {notes.map((note, index) => (
           <Box key={index} p={4} shadow="md" borderWidth="1px">
